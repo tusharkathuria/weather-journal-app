@@ -10,6 +10,18 @@ const d = new Date();
 const newDate = `${d.getMonth()}.${d.getDate()}.${d.getFullYear()}`;
 
 utils.validateInputs = () => {
+    const zipNode = document.getElementById("zip");
+
+    if(!zipNode.value) {
+        return false;
+    }
+
+    const feelingsNode = document.getElementById("feelings");
+
+    if(!feelingsNode.value) {
+        return false;
+    }
+
     return true;
 }
 
@@ -56,15 +68,21 @@ utils.getData = async (id) => {
     }
 };
 
-utils.updateUI = () => {
+utils.updateUI = (data) => {
+    const dateNode = document.getElementById("date");
+    const tempNode = document.getElementById("temp");
+    const contentNode = document.getElementById("content");
 
+    dateNode.textContent = data.date;
+    tempNode.textContent = data.temperature;
+    contentNode.textContent = data.userResponse;
 }
 
 eventListeners.generateButtonClick = () => {
     const validationResult = utils.validateInputs();
 
     if(!validationResult) {
-        return;
+        return alert("Invalid/Incomplete input");
     }
 
     const zip = document.querySelector("#zip").value;
